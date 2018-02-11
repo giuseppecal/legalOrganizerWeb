@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {LastPracticesService} from './last-practices.service';
+import {Practice} from '../model/practice';
+
 
 @Component({
   selector: 'app-last-practices',
@@ -6,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./last-practices.component.css']
 })
 export class LastPracticesComponent implements OnInit {
+  practices: Practice[];
+  title2 : 'Ultime modifiche';
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit(): void {
+    this.getLastPractices();
   }
 
+  constructor(public lastPracticesService: LastPracticesService) {
+  }
+
+  getLastPractices(): void {
+    this.lastPracticesService.getLastPractices()
+      .subscribe(practices => this.practices = practices);
+  }
 }

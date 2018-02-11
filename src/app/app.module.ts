@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { itLocale } from 'ngx-bootstrap/locale';
+import {LastPracticesService} from './last-practices/last-practices.service';
 defineLocale('it', itLocale);
 
 
@@ -31,7 +32,7 @@ defineLocale('it', itLocale);
     BsDatepickerModule.forRoot(),
     FormsModule
   ],
-  providers: [],
+  providers: [LastPracticesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
