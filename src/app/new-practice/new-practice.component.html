@@ -63,7 +63,19 @@
       </div>
     </div>
 
-    <app-datepicker></app-datepicker>
+    <div class="form-group row">
+      <label for="dataApertura" class="col-sm-2 col-form-label">Data apertura</label>
+      <div class="col-sm-2">
+        <input type="text"
+               class="form-control"
+               [minDate]="minDate"
+               [maxDate]="maxDate"
+               #dp="bsDatepicker"
+               bsDatepicker [(bsValue)]="bsValue"
+               [bsConfig]="bsConfig"
+               id="dataApertura">
+      </div>
+    </div>
 
     <div class="form-group row">
       <div class="col-sm-10">
