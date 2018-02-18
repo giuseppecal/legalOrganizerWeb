@@ -1,11 +1,2 @@
-<app-navbar></app-navbar>
-
-<app-navscroller (newPracticeEvent)="showNewPractice($event)"></app-navscroller>
-
-<main role="main" class="container">
-
-    <app-last-practices *ngIf="showLastPractice"></app-last-practices>
-
-    <app-new-practice *ngIf="showPractice"></app-new-practice>
-
-</main>
+<app-dashboard *ngIf="authenticated"></app-dashboard>
+<router-outlet></router-outlet>

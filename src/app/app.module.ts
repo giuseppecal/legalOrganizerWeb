@@ -17,10 +17,19 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import {environment} from '../environments/environment';
-import { AuthService } from './last-practices/auth-service.service';
+import { AuthService } from './login/auth-service.service';
+import { LoginComponent } from './login/login.component';
+import { Routes, RouterModule } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 defineLocale('it', itLocale);
 
+const routes: Routes = [
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'new-practice', component: NewPracticeComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full'}
+];
 
 @NgModule({
   declarations: [
@@ -28,9 +37,12 @@ defineLocale('it', itLocale);
     NavbarComponent,
     NavscrollerComponent,
     NewPracticeComponent,
-    LastPracticesComponent
+    LastPracticesComponent,
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
+    RouterModule.forRoot(routes, { enableTracing: false } ),
     BrowserModule,
     NgbModule.forRoot(),
     BsDatepickerModule.forRoot(),

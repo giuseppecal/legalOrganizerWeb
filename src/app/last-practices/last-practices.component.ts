@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
-import { AuthService } from './auth-service.service';
-import { Observable } from '@firebase/util';
+import { AuthService } from '../login/auth-service.service';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-last-practices',
@@ -13,13 +13,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class LastPracticesComponent {
 
   practices: FirebaseListObservable<any[]>;
+  isLoggedIn: Observable<boolean>;
 
-  constructor(private afAuth: AngularFireAuth, db: AngularFireDatabase) {
-    this.afAuth.auth.signInAnonymously().then(
-      (auth) => {
-        if (auth != null) {
-          this.practices = db.list('/pratiche/Q481Cy6lHsPCmJGbcpsDb4hILv23');
-        }
-      });
+  constructor(private authService: AuthService, db: AngularFireDatabase) {
+    console.log('-- LastPracticesComponent --');
+    this.isLoggedIn = authService.isLoggedIn();
+    if (this.isLoggedIn) {
+          console.log('-- Calling pratiche for ' + authService.loggedToken);
+          this.practices = db.list('/pratiche/' + authService.loggedToken);
+    }
   }
 }
