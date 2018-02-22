@@ -23,6 +23,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { routing } from './app.routes';
 import { HeaderComponent } from './header/header.component';
+import { LastPracticesService } from './last-practices/last-practices.service';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 
 defineLocale('it', itLocale);
 
@@ -47,7 +49,7 @@ defineLocale('it', itLocale);
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, LastPracticesService, AngularFireDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
