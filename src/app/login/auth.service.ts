@@ -22,6 +22,7 @@ export class AuthService {
 
   // Returns true if user is logged in
   get authenticated(): boolean {
+    console.log(this.authState);
     return this.authState !== null;
   }
 
@@ -52,10 +53,13 @@ export class AuthService {
 
   // Returns current user display name or Guest
   get currentUserDisplayName(): string {
-    if (!this.authState)
-      { return 'Guest'; }
-    else if (this.currentUserAnonymous) { return 'Anonymous'; }
-    else { return this.authState['displayName'] || 'User without a Name'; }
+    if (!this.authState) {
+      return 'Guest';
+    } else if (this.currentUserAnonymous) {
+      return 'Anonymous';
+    } else {
+      return this.authState['displayName'] || 'User without a Name';
+    }
   }
 
   //// Social Auth ////
@@ -83,6 +87,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) =>  {
           this.authState = credential.user;
+          console.log('socialSignIn' + this.authState);
           localStorage.setItem('token', this.currentUserId);
           localStorage.setItem('email', this.currentEmail);
           localStorage.setItem('displayName', this.currentUserDisplayName);
@@ -130,15 +135,13 @@ export class AuthService {
 
   //// Sign Out ////
   signOut(): void {
-    this.afAuth.auth.signOut().then(() => {
+      console.log('-- Logout ##');
+      this.afAuth.auth.signOut();
       localStorage.removeItem('token');
       localStorage.removeItem('email');
       localStorage.removeItem('displayName');
-
       this.isLoginSubject.next(false);
-      console.log('-- Logout --');
       this.router.navigate(['login']);
-   });
   }
 
   /**
@@ -154,7 +157,7 @@ export class AuthService {
    *
    * @returns {Observable<T>}
    */
-  isLoggedIn(): Observable<boolean> {
+   isLoggedIn(): Observable<boolean> {
     return this.isLoginSubject.asObservable();
   }
 

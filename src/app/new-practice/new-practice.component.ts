@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Input} from '@angular/compiler/src/core';
 import {BsDatepickerConfig, BsLocaleService, defineLocale} from 'ngx-bootstrap';
 import { listLocales } from 'ngx-bootstrap/chronos';
-import { AuthService } from '../login/auth-service.service';
+import { AuthService } from '../login/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
@@ -15,7 +15,7 @@ export class NewPracticeComponent {
 
   locale = 'it';
   colorTheme = 'theme-dark-blue';
-  isLoggedIn: Observable<boolean>;
+  isLoggedIn: boolean;
 
   constructor(private _localeService: BsLocaleService,
         private authService: AuthService,
@@ -23,7 +23,7 @@ export class NewPracticeComponent {
 
           console.log('NewPracticeComponent');
           this._localeService.use(this.locale);
-          this.isLoggedIn = authService.isLoggedIn();
+          this.isLoggedIn = authService.authenticated;
           if (! this.isLoggedIn) {
             console.log('No user data!');
             // this.router.navigate(['login']);

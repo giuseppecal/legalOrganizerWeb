@@ -4,8 +4,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { AppComponent } from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { NavbarComponent } from './navbar/navbar.component';
-import { NavscrollerComponent } from './navscroller/navscroller.component';
+import { NavbarComponent } from './header/navbar/navbar.component';
+import { NavscrollerComponent } from './header/navscroller/navscroller.component';
 import { NewPracticeComponent } from './new-practice/new-practice.component';
 import { LastPracticesComponent } from './last-practices/last-practices.component';
 import {FormsModule} from '@angular/forms';
@@ -17,19 +17,14 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import {environment} from '../environments/environment';
-import { AuthService } from './login/auth-service.service';
+import { AuthService } from './login/auth.service';
 import { LoginComponent } from './login/login.component';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { routing } from './app.routes';
+import { HeaderComponent } from './header/header.component';
 
 defineLocale('it', itLocale);
-
-const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'new-practice', component: NewPracticeComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full'}
-];
 
 @NgModule({
   declarations: [
@@ -39,10 +34,11 @@ const routes: Routes = [
     NewPracticeComponent,
     LastPracticesComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    HeaderComponent
   ],
   imports: [
-    RouterModule.forRoot(routes, { enableTracing: false } ),
+    routing,
     BrowserModule,
     NgbModule.forRoot(),
     BsDatepickerModule.forRoot(),

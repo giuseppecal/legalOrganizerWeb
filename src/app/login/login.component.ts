@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth-service.service';
+import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,11 +10,11 @@ import { Observable } from 'rxjs/Observable';
 })
 export class LoginComponent  {
 
-  isLoggedIn: Observable<boolean>;
+  isLoggedIn: boolean;
 
   constructor(public authService: AuthService, private router: Router) {
     console.log('-- LoginComponent --');
-    this.isLoggedIn = authService.isLoggedIn();
+    this.isLoggedIn = authService.authenticated;
     if (this.isLoggedIn) {
       authService.signOut();
     }
@@ -29,6 +29,6 @@ export class LoginComponent  {
 
   private afterSignIn(): void {
     // Do after login stuff here, such router redirects, toast messages, etc.
-    this.router.navigate(['']);
+    this.router.navigate(['dashboard']);
   }
 }
