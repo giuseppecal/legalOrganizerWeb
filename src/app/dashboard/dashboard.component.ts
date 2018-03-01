@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AuthService } from '../login/auth.service';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import {Component} from '@angular/core';
+import {AuthService} from '../login/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +9,10 @@ import { Observable } from 'rxjs/Observable';
 })
 export class DashboardComponent {
   username: string;
+  public isLoggedIn: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
     console.log('-- DashboardComponent --');
-    this.username = authService.loggedUsername;
   }
 
   logout() {

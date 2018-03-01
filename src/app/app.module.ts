@@ -25,6 +25,7 @@ import { routing } from './app.routes';
 import { HeaderComponent } from './header/header.component';
 import { LastPracticesService } from './last-practices/last-practices.service';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { RegistrationComponent } from './registration/registration.component';
 
 defineLocale('it', itLocale);
 
@@ -37,7 +38,8 @@ defineLocale('it', itLocale);
     LastPracticesComponent,
     LoginComponent,
     DashboardComponent,
-    HeaderComponent
+    HeaderComponent,
+    RegistrationComponent
   ],
   imports: [
     routing,
@@ -47,7 +49,8 @@ defineLocale('it', itLocale);
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    FormsModule
   ],
   providers: [AuthService, LastPracticesService, AngularFireDatabase],
   bootstrap: [AppComponent]

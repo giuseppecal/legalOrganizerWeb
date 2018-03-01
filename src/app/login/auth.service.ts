@@ -14,15 +14,16 @@ export class AuthService {
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
 
   constructor(private afAuth: AngularFireAuth,
+              private db: AngularFireDatabase,
               private router: Router) {
             this.afAuth.authState.subscribe((auth) => {
               this.authState = auth;
             });
           }
 
+
   // Returns true if user is logged in
   get authenticated(): boolean {
-    console.log(this.authState);
     return this.authState !== null;
   }
 
@@ -111,8 +112,8 @@ export class AuthService {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user;
-      })
-      .catch(error => console.log(error));
+      });
+      //.catch(error => console.log("err" + error));
   }
 
   emailLogin(email: string, password: string) {
@@ -171,6 +172,21 @@ export class AuthService {
 
   get loggedToken(): string {
     return localStorage.getItem('token');
+  }
+
+  //// Helpers ////
+  private updateUserData(): void {
+    // Writes user name and email to realtime db
+    // useful if your app displays information about users or for admin features
+    let path = `users/${this.currentUserId}`; // Endpoint on firebase
+    let data = {
+      email: this.authState.email,
+      name: this.authState.displayName
+    }
+
+    this.db.object(path).update(data)
+      .catch(error => console.log(error));
+
   }
 
 }

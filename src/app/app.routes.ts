@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { NewPracticeComponent } from './new-practice/new-practice.component';
+import {RegistrationComponent} from './registration/registration.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'new-practice',
     component: NewPracticeComponent
+  },
+  {
+    path: 'signup',
+    component: RegistrationComponent
   },
   {
     path: '',

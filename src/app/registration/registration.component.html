@@ -1,0 +1,103 @@
+<div class="login-form">
+  <form #registrationForm="ngForm">
+    <h2 class="text-center">Sign up</h2>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+      </div>
+      <input class="form-control"
+             id="name"
+             name="name"
+             placeholder="Enter your Name"
+             required
+             type="text"
+             [(ngModel)]="user.name"
+             #nameValidation="ngModel">
+    </div>
+    <div [hidden]="nameValidation.valid || nameValidation.pristine" class="alert alert-danger">Your Name is required
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+      </div>
+      <input class="form-control"
+             id="email"
+             name="email"
+             placeholder="Enter your Email"
+             required
+             type="text"
+             [(ngModel)]="user.email"
+             #emailValidation="ngModel">
+    </div>
+    <div [hidden]="emailValidation.valid || emailValidation.pristine" class="alert alert-danger">Your email is
+      required
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+      </div>
+      <input class="form-control"
+             id="username"
+             name="username"
+             placeholder="Enter your Username"
+             required
+             type="text"
+             [(ngModel)]="user.username"
+             #usernameValidation="ngModel">
+    </div>
+    <div [hidden]="usernameValidation.valid || usernameValidation.pristine" class="alert alert-danger">Your Username is
+      required.
+    </div>
+
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-lock fa" aria-hidden="true"></i></span>
+      </div>
+      <input class="form-control"
+             id="password"
+             name="password"
+             placeholder="Enter your Password"
+             type="text"
+             [(ngModel)]="user.password"
+             (blur)="validatePassword()"
+             (focus)="clearConfirmPassword()">
+    </div>
+    <div *ngIf="validPassword" class="alert alert-danger">{{validPassword}}</div>
+
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fa fa-lock fa" aria-hidden="true"></i></span>
+      </div>
+      <input
+        class="form-control"
+        id="confirmPassword"
+        name="confirmPassword"
+        placeholder="Confirm your Password"
+        required
+        type="text"
+        [(ngModel)]="user.confirmPassword"
+        (blur)="validateConfirmPassword()">
+    </div>
+    <div *ngIf=validConfirmPassword class="alert alert-danger">{{validConfirmPassword}}</div>
+
+    <div class="form-group" >
+      <button class="btn btn-primary login-btn btn-block"
+              (click)="registration()"
+              [disabled]="!registrationForm.form.valid || invalid" type="submit">Register</button>
+    </div>
+
+    <div *ngIf="registrationResponse" class="alert alert-danger">{{registrationResponse}}</div>
+
+
+  </form>
+  <p class="text-center text-muted small"><a href="#" routerLink="/login">Login</a></p>
+</div>
+
+
+
+
