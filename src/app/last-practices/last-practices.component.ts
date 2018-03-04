@@ -6,8 +6,7 @@ import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
   selector: 'app-last-practices',
-  templateUrl: './last-practices.component.html',
-  styleUrls: ['./last-practices.component.css']
+  templateUrl: './last-practices.component.html'
 })
 export class LastPracticesComponent {
 

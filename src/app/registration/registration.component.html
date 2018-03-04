@@ -2,7 +2,7 @@
   <form #registrationForm="ngForm">
     <h2 class="text-center">Sign up</h2>
 
-    <div class="input-group mb-3">
+    <!--div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fa fa-user fa" aria-hidden="true"></i></span>
       </div>
@@ -16,7 +16,7 @@
              #nameValidation="ngModel">
     </div>
     <div [hidden]="nameValidation.valid || nameValidation.pristine" class="alert alert-danger">Your Name is required
-    </div>
+    </div-->
 
     <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -35,7 +35,7 @@
       required
     </div>
 
-    <div class="input-group mb-3">
+    <!--div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text"><i class="fa fa-users fa" aria-hidden="true"></i></span>
       </div>
@@ -50,7 +50,7 @@
     </div>
     <div [hidden]="usernameValidation.valid || usernameValidation.pristine" class="alert alert-danger">Your Username is
       required.
-    </div>
+    </div-->
 
 
     <div class="input-group mb-3">
@@ -61,7 +61,7 @@
              id="password"
              name="password"
              placeholder="Enter your Password"
-             type="text"
+             type="password"
              [(ngModel)]="user.password"
              (blur)="validatePassword()"
              (focus)="clearConfirmPassword()">
@@ -79,7 +79,7 @@
         name="confirmPassword"
         placeholder="Confirm your Password"
         required
-        type="text"
+        type="password"
         [(ngModel)]="user.confirmPassword"
         (blur)="validateConfirmPassword()">
     </div>

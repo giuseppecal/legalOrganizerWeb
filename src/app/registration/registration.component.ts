@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {User} from '../common/user';
-import {FormGroup} from '@angular/forms';
 import {AuthService} from '../login/auth.service';
 import {Router} from '@angular/router';
+import {AlertService} from '../common/alert.service';
+import {Response} from '../common/response';
 
 @Component({
   selector: 'app-registration',
@@ -18,7 +19,10 @@ export class RegistrationComponent {
 
   public registrationResponse: string;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private comunicator: AlertService)
+  {
     this.user = new User();
   }
 
@@ -51,6 +55,7 @@ export class RegistrationComponent {
 
   public registration() {
     this.authService.emailSignUp(this.user.email, this.user.password).then(res => {
+        this.comunicator.sendMessage(new Response("success", 200, "Registred successfully"));
         this.router.navigate(['login']);
       },(error) => {
         //FAILURE

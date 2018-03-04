@@ -10,8 +10,6 @@ import {Observable} from 'rxjs/Observable';
 })
 export class AppComponent {
 
-  user_displayName: String;
-  user_email: String;
   isLoggedIn: boolean;
 
   constructor(public authService: AuthService, private router: Router) {

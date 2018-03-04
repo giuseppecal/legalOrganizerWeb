@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {AngularFireDatabase} from 'angularfire2/database-deprecated';
+import {AngularFireAuth} from 'angularfire2/auth';
+import {Router} from '@angular/router';
 import * as firebase from 'firebase';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
@@ -88,13 +88,11 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) =>  {
           this.authState = credential.user;
-          console.log('socialSignIn' + this.authState);
           localStorage.setItem('token', this.currentUserId);
           localStorage.setItem('email', this.currentEmail);
           localStorage.setItem('displayName', this.currentUserDisplayName);
           this.isLoginSubject.next(true);
-      })
-      .catch(error => console.log(error));
+      });
   }
 
 
@@ -113,15 +111,17 @@ export class AuthService {
       .then((user) => {
         this.authState = user;
       });
-      //.catch(error => console.log("err" + error));
   }
 
   emailLogin(email: string, password: string) {
      return this.afAuth.auth.signInWithEmailAndPassword(email, password)
        .then((user) => {
          this.authState = user;
-       })
-       .catch(error => console.log(error));
+         localStorage.setItem('token', this.currentUserId);
+         localStorage.setItem('email', this.currentEmail);
+         localStorage.setItem('displayName', this.currentUserDisplayName);
+         this.isLoginSubject.next(true);
+       });
   }
 
   // Sends email allowing user to reset password
@@ -150,7 +150,6 @@ export class AuthService {
    * @returns {boolean}
    */
   private hasToken(): boolean {
-    console.log('token: ' + localStorage.getItem('token'));
     return !!localStorage.getItem('token');
   }
 
@@ -163,7 +162,7 @@ export class AuthService {
   }
 
   get loggedUsername(): string {
-    return localStorage.getItem('displayName');
+    return localStorage.getItem('displayName') || 'User without a Name';
   }
 
   get loggedEmail(): string {
