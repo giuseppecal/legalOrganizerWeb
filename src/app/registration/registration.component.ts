@@ -58,7 +58,6 @@ export class RegistrationComponent {
         this.comunicator.sendMessage(new Response("success", 200, "Registred successfully"));
         this.router.navigate(['login']);
       },(error) => {
-        //FAILURE
         this.registrationResponse = error;
       })
       .catch(error => this.registrationResponse = error

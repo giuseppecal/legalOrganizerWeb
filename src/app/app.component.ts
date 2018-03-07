@@ -2,6 +2,9 @@ import {Component} from '@angular/core';
 import {AuthService} from './login/auth.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
+import {Response} from './common/response';
+import {Subscription} from 'rxjs/Subscription';
+import {AlertService} from './common/alert.service';
 
 @Component({
   selector: 'app-root',
@@ -10,19 +13,27 @@ import {Observable} from 'rxjs/Observable';
 })
 export class AppComponent {
 
-  isLoggedIn: boolean;
+  public isLoggedIn: boolean;
+  public subscription$: Subscription = new Subscription();
 
-  constructor(public authService: AuthService, private router: Router) {
+
+  constructor(public authService: AuthService,
+              private router: Router,
+              private comunicator: AlertService) {
+
     console.log('-- AppComponent --');
-    this.authService.isLoggedIn().subscribe(
-      (data: boolean) => {
-           this.isLoggedIn = data;
-      },
-      err =>  {console.log(err),
-           this.router.navigate(['login'])});
 
-    if ( !this.isLoggedIn ) {
-      //this.router.navigate(['login']);
+    this.subscription$ = this.authService.isLoggedIn().subscribe(
+      (data: boolean) => {
+        this.isLoggedIn = data;
+      },
+      error => {
+        this.comunicator.sendMessage(new Response('error', 500, error));
+        this.router.navigate(['login']);
+      });
+
+    if (this.isLoggedIn) {
+      authService.signOut();
     }
   }
 }

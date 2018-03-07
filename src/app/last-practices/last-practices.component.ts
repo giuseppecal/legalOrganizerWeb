@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { LastPracticesService } from './last-practices.service';
+import { PracticeFirebaseService } from './last-practices.service';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 
 @Component({
@@ -12,7 +12,7 @@ export class LastPracticesComponent {
 
   public practices: FirebaseListObservable<any[]>;
 
-  constructor(private practicesService: LastPracticesService) {
+  constructor(private practicesService: PracticeFirebaseService) {
     this.practices = practicesService.getLastPractices();
   }
 }

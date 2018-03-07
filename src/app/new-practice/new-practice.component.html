@@ -6,60 +6,123 @@
     </ol>
   </nav>
 
-  <form>
+  <form #practiceForm="ngForm">
+
+    <div class="form-group row">
+      <label for="titolo" class="col-sm-2 col-form-label">ID</label>
+      <div class="col-sm-10">
+        <input type="text"
+               class="form-control"
+               id="id"
+               name="id"
+               placeholder=""
+               [(ngModel)]="practice.id"
+               #idValidation="ngModel"
+               required>
+      </div>
+    </div>
+    <div [hidden]="idValidation.valid || idValidation.pristine" class="alert alert-danger">ID is
+      required
+    </div>
+
     <div class="form-group row">
       <label for="titolo" class="col-sm-2 col-form-label">Titolo</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="titolo" placeholder="">
+        <input type="text"
+               class="form-control"
+               id="titolo"
+               name="titolo"
+               placeholder=""
+               [(ngModel)]="practice.titolo"
+               #titoloValidation="ngModel"
+               required>
       </div>
+    </div>
+    <div [hidden]="titoloValidation.valid || titoloValidation.pristine" class="alert alert-danger">Titolo is
+      required
     </div>
 
     <div class="form-group row">
       <label for="oggetto" class="col-sm-2 col-form-label">Oggetto</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="oggetto" placeholder="">
+        <input type="text"
+               class="form-control"
+               name="oggetto"
+               id="oggetto"
+               placeholder=""
+               [(ngModel)]= "practice.oggetto">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="ufficioGiudiziario" class="col-sm-2 col-form-label">Ufficio Giudiziario</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="ufficioGiudiziario" placeholder="">
+        <input type="text"
+               class="form-control"
+               id="ufficioGiudiziario"
+               name="ufficioGiudiziario"
+               placeholder=""
+               [(ngModel)]= "practice.ufficioGiudiziario">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="ruolo" class="col-sm-2 col-form-label">Ruolo</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="ruolo" placeholder="">
+        <input type="text"
+               class="form-control"
+               id="ruolo"
+               name="ruolo"
+               placeholder=""
+               [(ngModel)]= "practice.ruolo">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="giudice" class="col-sm-2 col-form-label">Giudice</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="giudice" placeholder="">
+        <input type="text"
+               class="form-control"
+               id="giudice"
+               name="giudice"
+               placeholder=""
+               [(ngModel)] = "practice.giudice">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="foro" class="col-sm-2 col-form-label">Foro</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="foro" placeholder="">
+        <input type="text"
+               class="form-control"
+               name="foro"
+               id="foro"
+               placeholder=""
+               [(ngModel)] = "practice.foro">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="sezione" class="col-sm-2 col-form-label">Sezione</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="sezione" placeholder="">
+        <input type="text"
+               class="form-control"
+               name="sezione"
+               id="sezione"
+               placeholder=""
+               [(ngModel)] = "practice.sezione">
       </div>
     </div>
 
     <div class="form-group row">
       <label for="valore" class="col-sm-2 col-form-label">Valore</label>
       <div class="col-sm-2">
-        <input type="text" class="form-control" id="valore" placeholder="€">
+        <input type="text"
+               class="form-control"
+               id="valore"
+               name="valore"
+               placeholder="€"
+               [(ngModel)] = "practice.valore">
       </div>
     </div>
 
@@ -73,13 +136,15 @@
                #dp="bsDatepicker"
                bsDatepicker [(bsValue)]="bsValue"
                [bsConfig]="bsConfig"
-               id="dataApertura">
+               id="dataApertura"
+               name = "dataApertura"
+               [(ngModel)] = "practice.dataApertura">
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-sm-10">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!practiceForm.form.valid" (click)="save()">Save</button>
       </div>
     </div>
 

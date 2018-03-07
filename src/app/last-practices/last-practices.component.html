@@ -14,7 +14,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let practice of practices | async">
-        <th scope="row">{{practice.id}}</th>
+        <th scope="row">{{practice.$key}}</th>
         <td>{{practice.titolo}}</td>
         <td>{{practice.sezione}}</td>
         <td>{{practice.giudice}}</td>

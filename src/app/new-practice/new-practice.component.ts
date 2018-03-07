@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Input} from '@angular/compiler/src/core';
 import {BsDatepickerConfig, BsLocaleService, defineLocale} from 'ngx-bootstrap';
-import { listLocales } from 'ngx-bootstrap/chronos';
-import { AuthService } from '../login/auth.service';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import {listLocales} from 'ngx-bootstrap/chronos';
+import {AuthService} from '../login/auth.service';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import {Practice} from '../common/practice';
+import {PracticeFirebaseService} from '../last-practices/last-practices.service';
 
 @Component({
   selector: 'app-new-practice',
@@ -13,26 +15,33 @@ import { Observable } from 'rxjs/Observable';
 })
 export class NewPracticeComponent {
 
-  locale = 'it';
-  colorTheme = 'theme-dark-blue';
-  isLoggedIn: boolean;
+  public locale = 'it';
+  public colorTheme = 'theme-dark-blue';
+  public isLoggedIn: boolean;
+  public practice: Practice;
+
+  bsConfig: Partial<BsDatepickerConfig> = Object.assign({}, {containerClass: this.colorTheme});
+  bsValue: Date = new Date();
 
   constructor(private _localeService: BsLocaleService,
-        private authService: AuthService,
-        private router: Router) {
-
-          console.log('NewPracticeComponent');
-          this._localeService.use(this.locale);
-          this.isLoggedIn = authService.authenticated;
-          if (! this.isLoggedIn) {
-            console.log('No user data!');
-            // this.router.navigate(['login']);
-          } else {
-            console.log('isLoggedIn ' + this.isLoggedIn);
-            console.log('logged_displayName ' + this.authService.loggedUsername);
-          }
+              private authService: AuthService,
+              private router: Router,
+              private  practiceService: PracticeFirebaseService) {
+    this.practice = new Practice();
   }
 
-  bsConfig: Partial<BsDatepickerConfig> =  Object.assign({}, { containerClass: this.colorTheme });
-  bsValue: Date = new Date();
+  public save() {
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+
+    this.practice.dataCreazione = dateTime + "";
+    this.practice.dataUltimaModifica = this.practice.dataCreazione;
+    this.practice.stato = 'Nuova';
+
+    alert(JSON.stringify(this.practice));
+
+    this.practiceService.save(this.practice);
+  }
 }
