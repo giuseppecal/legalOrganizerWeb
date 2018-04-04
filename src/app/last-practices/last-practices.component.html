@@ -1,6 +1,5 @@
 
 <main role="main" class="container">
-
   <table class="table table-hover">
     <thead>
       <tr>
@@ -16,7 +15,7 @@
       <tr *ngFor="let practice of practices | async">
         <th scope="row">{{practice.$key}}</th>
         <td>{{practice.titolo}}</td>
-        <td>{{practice.sezione}}</td>
+        <td>{{practice.foro}}</td>
         <td>{{practice.giudice}}</td>
         <td>{{practice.ufficioGiudiziario}}</td>
         <td><i class="fa fa-folder-open-o" aria-hidden="true"></i></td>

@@ -23,7 +23,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { routing } from './app.routes';
 import { HeaderComponent } from './header/header.component';
-import { PracticeFirebaseService } from './last-practices/last-practices.service';
+import { PracticeFirebaseService } from './common/practice.service';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { RegistrationComponent } from './registration/registration.component';
 import {AlertService} from './common/alert.service';

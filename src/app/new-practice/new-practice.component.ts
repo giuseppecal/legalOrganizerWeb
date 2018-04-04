@@ -6,7 +6,7 @@ import {AuthService} from '../login/auth.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Practice} from '../common/practice';
-import {PracticeFirebaseService} from '../last-practices/last-practices.service';
+import {PracticeFirebaseService} from '../common/practice.service';
 
 @Component({
   selector: 'app-new-practice',
@@ -40,7 +40,7 @@ export class NewPracticeComponent {
     this.practice.dataUltimaModifica = this.practice.dataCreazione;
     this.practice.stato = 'Nuova';
 
-    alert(JSON.stringify(this.practice));
+    // alert(JSON.stringify(this.practice));
 
     this.practiceService.save(this.practice);
   }
